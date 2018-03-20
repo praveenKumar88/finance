@@ -88,7 +88,7 @@ def optimal_portfolio(returns):
 
     
     pbar = opt.matrix(np.mean(returns, axis=1))
-    print "pbar:", pbar
+    print( "pbar:", pbar)
 
     # Create constraint matrices
     G = -opt.matrix(np.eye(n))   # negative n x n identity matrix
@@ -113,7 +113,7 @@ def optimal_portfolio(returns):
     x1 = np.sqrt(m1[2] / m1[0])
     # CALCULATE THE OPTIMAL PORTFOLIO
     wt = solvers.qp(opt.matrix(x1 * S), -pbar, G, h, A, b)['x'] #Is this the tangency portfolio? X1 = slope from origin?  
-    print "wt, optimal portfolio:", wt
+    print("wt, optimal portfolio:", wt)
     return np.asarray(wt), returns, risks, port_list
 
 
@@ -177,26 +177,26 @@ plt.show()
 ## Optional interactive plot using mpld3:
 ## Source: http://mpld3.github.io/examples/html_tooltips.html
 
-# fig, ax = plt.subplots()
-# ax.grid(True, alpha=0.3)
+fig, ax = plt.subplots()
+ax.grid(True, alpha=0.3)
 
-# labels = []
-# for i in range(len(risks)):
-#     label = " Risk: " + str(risks[i]) + " Return: " + str(returns[i]) + " Portfolio Weights: " + str(portfolios[i])
-#     labels.append(str(label))
+labels = []
+for i in range(len(risks)):
+    label = " Risk: " + str(risks[i]) + " Return: " + str(returns[i]) + " Portfolio Weights: " + str(portfolios[i])
+    labels.append(str(label))
 
-# points = ax.plot(risks, returns, 'o', color='b',
-#                  mec='k', ms=15, mew=1, alpha=.6)
+points = ax.plot(risks, returns, 'o', color='b',
+                  mec='k', ms=15, mew=1, alpha=.6)
 
-# ax.set_xlabel('standard deviation')
-# ax.set_ylabel('return')
-# ax.set_title('Efficient Frontier', size=20)
+ax.set_xlabel('standard deviation')
+ax.set_ylabel('return')
+ax.set_title('Efficient Frontier', size=20)
 
-# tooltip = plugins.PointHTMLTooltip(points[0], labels,
-#                                    voffset=10, hoffset=10)
-# plugins.connect(fig, tooltip)
+tooltip = plugins.PointHTMLTooltip(points[0], labels,
+                                    voffset=10, hoffset=10)
+plugins.connect(fig, tooltip)
 
-# mpld3.show()
+mpld3.show()
 
 
 
